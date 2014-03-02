@@ -1,0 +1,1 @@
+override[:bootstrap][:auto_reboot] = 1

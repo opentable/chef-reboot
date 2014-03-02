@@ -28,15 +28,16 @@ cookbook_file "#{node['chef_handler']['handler_path']}/reboot_handler.rb" do
   action :create
 end
 
+Chef::Log.debug("Reboot Set to " + (node[:bootstrap][:auto_reboot]).to_s)
+
+
 chef_handler "RebootHandler" do
   source "#{node['chef_handler']['handler_path']}/reboot_handler.rb"
-  if node.has_key? :bootstrap
-    if node[:bootstrap].has_key? :auto_reboot && node[:bootstrap][:auto_reboot] == 0
-      action :disable
-    else
-      action :enable
-    end
-  else
+
+  if node[:bootstrap][:auto_reboot] == 1
     action :enable
+  else
+    action :disable
   end
+
 end
