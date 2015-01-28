@@ -1,6 +1,7 @@
-#
-# Author:: Paul Thomas <paul.thomas@livingsocial.com>
-# Copyright:: Copyright (c) 2011 LivingSocial
+# encoding: UTF-8
+# Author:: Paul Thomas <paul@paulthomas.eu>
+# Copyright:: Copyright (c) 2011-13 LivingSocial
+# Copyright:: Copyright (c) 2013-14 Paul Thomas
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,14 +20,14 @@
 class RebootHandler < Chef::Handler
   include Chef::Mixin::ShellOut
 
-  def initialize(allow_pending_reboots=true, delay=2, reason="Reboot by Chef")
+  def initialize(allow_pending_reboots = true, delay = 2, reason = 'Reboot by Chef')
     @allow_pending_reboots = allow_pending_reboots
     @delay = delay
     @reason = reason
   end
 
   def report
-    Chef::Log::warn("Rebooting system from Chef")
+    Chef::Log.warn('Rebooting system from Chef')
     shell_out!("shutdown -r #{delay} #{reason}")
   end
 
